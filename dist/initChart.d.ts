@@ -1,1 +1,2 @@
-export declare function initChart(userOpts: any, baseOpts: any, type: string): any;
+import { HighchartsService } from './HighchartsService';
+export declare function initChart(highchartsService: HighchartsService, userOpts: any, baseOpts: any, type: string): any;

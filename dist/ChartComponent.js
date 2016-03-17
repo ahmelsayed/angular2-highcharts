@@ -10,10 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var ChartSeriesComponent_1 = require('./ChartSeriesComponent');
+var HighchartsService_1 = require('./HighchartsService');
 var initChart_1 = require('./initChart');
 var createBaseOpts_1 = require("./createBaseOpts");
 var ChartComponent = (function () {
-    function ChartComponent(element) {
+    function ChartComponent(element, highchartsService) {
         this.create = new core_1.EventEmitter();
         this.click = new core_1.EventEmitter();
         this.addSeries = new core_1.EventEmitter();
@@ -26,6 +27,7 @@ var ChartComponent = (function () {
         this.selection = new core_1.EventEmitter();
         this.type = 'Chart';
         this.element = element;
+        this.highchartsService = highchartsService;
     }
     Object.defineProperty(ChartComponent.prototype, "options", {
         set: function (opts) {
@@ -38,14 +40,12 @@ var ChartComponent = (function () {
     ;
     ChartComponent.prototype.init = function () {
         if (this.userOpts && this.baseOpts) {
-            this.chart = initChart_1.initChart(this.userOpts, this.baseOpts, this.type);
+            this.chart = initChart_1.initChart(this.highchartsService, this.userOpts, this.baseOpts, this.type);
             this.create.emit(this.chart);
         }
     };
     ChartComponent.prototype.ngAfterViewInit = function () {
-        console.log('ngAfterViewChecked');
         this.baseOpts = createBaseOpts_1.createBaseOpts(this, this.series, this.series ? this.series.point : null, this.element.nativeElement);
-        console.log('base opts', this.baseOpts);
         this.init();
     };
     __decorate([
@@ -104,9 +104,10 @@ var ChartComponent = (function () {
     ChartComponent = __decorate([
         core_1.Component({
             selector: 'chart',
-            template: ''
+            template: '',
+            providers: [HighchartsService_1.HighchartsService],
         }), 
-        __metadata('design:paramtypes', [core_1.ElementRef])
+        __metadata('design:paramtypes', [core_1.ElementRef, HighchartsService_1.HighchartsService])
     ], ChartComponent);
     return ChartComponent;
 }());

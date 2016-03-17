@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var ChartPointComponent_1 = require('./ChartPointComponent');
-var core_2 = require("angular2/core");
 var ChartSeriesComponent = (function () {
     function ChartSeriesComponent() {
         this.click = new core_1.EventEmitter();
@@ -59,7 +58,7 @@ var ChartSeriesComponent = (function () {
         __metadata('design:type', Object)
     ], ChartSeriesComponent.prototype, "show", void 0);
     ChartSeriesComponent = __decorate([
-        core_2.Directive({
+        core_1.Directive({
             selector: 'series'
         }), 
         __metadata('design:paramtypes', [])

@@ -1,7 +1,6 @@
-/// <reference path="../typings/highcharts.d.ts" />
-/// <reference path="../node_modules/angular2/typings/browser.d.ts" />
 import { ElementRef, EventEmitter } from 'angular2/core';
 import { ChartSeriesComponent } from './ChartSeriesComponent';
+import { HighchartsService } from './HighchartsService';
 import { ChartEvent } from './ChartEvent';
 export declare class ChartComponent {
     series: ChartSeriesComponent;
@@ -17,11 +16,12 @@ export declare class ChartComponent {
     selection: EventEmitter<ChartEvent>;
     chart: HighchartsChartObject;
     element: ElementRef;
+    highchartsService: HighchartsService;
     private userOpts;
     private baseOpts;
     type: string;
     options: HighchartsOptions;
     private init();
     ngAfterViewInit(): void;
-    constructor(element: ElementRef);
+    constructor(element: ElementRef, highchartsService: HighchartsService);
 }
