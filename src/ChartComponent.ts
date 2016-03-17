@@ -1,16 +1,15 @@
-/// <reference path="../typings/highcharts.d.ts" />
-/// <reference path="../node_modules/angular2/typings/browser.d.ts"" />
-
 import { Input, ElementRef, Component, Output, EventEmitter, ContentChild } from 'angular2/core';
-import { ChartSeriesComponent } from './ChartSeriesComponent';
 
+import { ChartSeriesComponent } from './ChartSeriesComponent';
+import { HighchartsService } from './HighchartsService';
 import { ChartEvent } from './ChartEvent';
 import { initChart } from './initChart';
 import { createBaseOpts } from "./createBaseOpts";
 
 @Component({
     selector: 'chart',
-    template: ''
+    template: '',
+    providers: [HighchartsService],
 })
 export class ChartComponent {
     @ContentChild(ChartSeriesComponent) series: ChartSeriesComponent;
@@ -26,6 +25,7 @@ export class ChartComponent {
     @Output() selection = new EventEmitter<ChartEvent>();
     chart: HighchartsChartObject;
     element: ElementRef;
+    highchartsService : HighchartsService;
     private userOpts: any;
     private baseOpts: any;
     @Input() type: string = 'Chart';
@@ -36,19 +36,18 @@ export class ChartComponent {
 
     private init() {
         if (this.userOpts && this.baseOpts) {
-            this.chart = initChart(this.userOpts, this.baseOpts, this.type);
+            this.chart = initChart(this.highchartsService, this.userOpts, this.baseOpts, this.type);
             this.create.emit(this.chart);
         }
     }
 
     ngAfterViewInit() {
-        console.log('ngAfterViewChecked');
         this.baseOpts = createBaseOpts(this, this.series, this.series ? this.series.point : null, this.element.nativeElement);
-        console.log('base opts', this.baseOpts);
         this.init();
     }
 
-    constructor(element: ElementRef) {
+    constructor(element: ElementRef, highchartsService : HighchartsService) {
         this.element = element;
+        this.highchartsService = highchartsService;
     }
 }

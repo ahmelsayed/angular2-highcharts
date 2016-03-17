@@ -1,13 +1,12 @@
-import { Highcharts } from './Highcharts';
+import { HighchartsService } from './HighchartsService';
 declare var require: any;
-let deepAssign = require('deep-assign');
+import { deepAssign } from './deepAssign';
 
-export function initChart(userOpts, baseOpts, type : string) {
-    //console.log('init', this.userOpts, this.baseOpts);
-    if (!Highcharts[type]) {
+export function initChart(highchartsService : HighchartsService, userOpts, baseOpts, type : string) {
+    if (!highchartsService.Highcharts[type]) {
         throw new Error(`${type} is unknown chart type.`);
     }
     let opts = deepAssign({}, baseOpts, userOpts);
-    console.log('init chart', opts);
-    return new Highcharts[type](opts);
+
+    return new highchartsService.Highcharts[type](opts);
 }

@@ -1,5 +1,12 @@
+
 import {Component} from '../../node_modules/angular2/core';
-import { CHART_DIRECTIVES } from '../../index';
+import { CHART_DIRECTIVES, Highcharts } from '../../index';
+
+
+
+Highcharts.setOptions({
+    colors: ['#058DC7', '#50B432', '#ED561B']
+});
 
 @Component({
     selector: 'simple-chart-example',
@@ -13,7 +20,7 @@ export class SimpleChartExample {
         this.options = {
             title : { text : 'simple chart' },
             series: [{
-                data: [29.9, 71.5, 106.4, 129.2],
+                data: Array.from(new Array(100), (x,i) => i),
             }]
         };
     }
